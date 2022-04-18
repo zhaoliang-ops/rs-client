@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TRsStandardSatelliteImageMapper">
+    
+    <resultMap type="TRsStandardSatelliteImage" id="TRsStandardSatelliteImageResult">
+        <result property="imageId"    column="image_id"    />
+        <result property="catalogCode"    column="catalog_code"    />
+        <result property="promotionId"    column="promotion_id"    />
+        <result property="productName"    column="product_name"    />
+        <result property="productPrice"    column="product_price"    />
+        <result property="productDescription"    column="product_description"    />
+        <result property="satelliteId"    column="satellite_id"    />
+        <result property="sensorId"    column="sensor_id"    />
+        <result property="dataFormat"    column="data_format"    />
+        <result property="mapProjection"    column="map_projection"    />
+        <result property="earthModel"    column="earth_model"    />
+        <result property="spatialResolution"    column="spatial_resolution"    />
+        <result property="version"    column="version"    />
+        <result property="standardCode"    column="standard_code"    />
+        <result property="imageCode"    column="image_code"    />
+        <result property="md5"    column="md5"    />
+        <result property="diskId"    column="disk_id"    />
+        <result property="serverId"    column="server_id"    />
+        <result property="wrsPath"    column="wrs_path"    />
+        <result property="wrsRow"    column="wrs_row"    />
+        <result property="thumbView"    column="thumb_view"    />
+        <result property="quickView"    column="quick_view"    />
+        <result property="cloudPercent"    column="cloud_percent"    />
+        <result property="filePath"    column="file_path"    />
+        <result property="dataSize"    column="data_size"    />
+        <result property="centerLat"    column="center_lat"    />
+        <result property="centerLong"    column="center_long"    />
+        <result property="upperLeftLat"    column="upper_left_lat"    />
+        <result property="upperLeftLong"    column="upper_left_long"    />
+        <result property="lowerRightLat"    column="lower_right_lat"    />
+        <result property="lowerRightLong"    column="lower_right_long"    />
+        <result property="geom"    column="geom"    />
+        <result property="dataUnitId"    column="data_unit_id"    />
+        <result property="sourceProductId"    column="source_product_id"    />
+        <result property="area"    column="area"    />
+        <result property="sunElevation"    column="sun_elevation"    />
+        <result property="sensingStartDate"    column="sensing_start_date"    />
+        <result property="sensingEndDate"    column="sensing_end_date"    />
+        <result property="datasetName"    column="dataset_name"    />
+        <result property="productType"    column="product_type"    />
+        <result property="productDate"    column="product_date"    />
+        <result property="productLevel"    column="product_level"    />
+        <result property="bands"    column="bands"    />
+        <result property="upperRightLat"    column="upper_right_lat"    />
+        <result property="upperRightLong"    column="upper_right_long"    />
+        <result property="lowerLeftLat"    column="lower_left_lat"    />
+        <result property="lowerLeftLong"    column="lower_left_long"    />
+        <result property="recStationId"    column="rec_station_id"    />
+        <result property="algorithm"    column="algorithm"    />
+        <result property="temporalResolution"    column="temporal_resolution"    />
+        <result property="creator"    column="creator"    />
+        <result property="createDate"    column="create_date"    />
+        <result property="downloadTime"    column="download_time"    />
+        <result property="modifyDate"    column="modify_date"    />
+    </resultMap>
+
+    <sql id="selectTRsStandardSatelliteImageVo">
+        select image_id, catalog_code, promotion_id, product_name, product_price, product_description, satellite_id, sensor_id, data_format, map_projection, earth_model, spatial_resolution, version, standard_code, image_code, md5, disk_id, server_id, wrs_path, wrs_row, thumb_view, quick_view, cloud_percent, file_path, data_size, center_lat, center_long, upper_left_lat, upper_left_long, lower_right_lat, lower_right_long, geom, data_unit_id, source_product_id, area, sun_elevation, sensing_start_date, sensing_end_date, dataset_name, product_type, product_date, product_level, bands, upper_right_lat, upper_right_long, lower_left_lat, lower_left_long, rec_station_id, algorithm, temporal_resolution, creator, create_date, download_time, modify_date from t_rs_standard_satellite_image
+    </sql>
+
+    <select id="selectTRsStandardSatelliteImageList" parameterType="TRsStandardSatelliteImage" resultMap="TRsStandardSatelliteImageResult">
+        <include refid="selectTRsStandardSatelliteImageVo"/>
+        <where>  
+            <if test="catalogCode != null  and catalogCode != ''"> and catalog_code = #{catalogCode}</if>
+            <if test="productName != null  and productName != ''"> and product_name like concat('%', #{productName}, '%')</if>
+            <if test="productDescription != null  and productDescription != ''"> and product_description = #{productDescription}</if>
+            <if test="dataFormat != null  and dataFormat != ''"> and data_format = #{dataFormat}</if>
+            <if test="createDate != null "> and create_date = #{createDate}</if>
+            and promotion_id = 2
+        </where>
+    </select>
+    <select id="getAllP2PImageList" parameterType="TRsStandardSatelliteImage" resultMap="TRsStandardSatelliteImageResult">
+        <include refid="selectTRsStandardSatelliteImageVo"/>
+        <where>
+            <if test="catalogCode != null  and catalogCode != ''"> and catalog_code = #{catalogCode}</if>
+            <if test="productName != null  and productName != ''"> and product_name like concat('%', #{productName}, '%')</if>
+            <if test="productDescription != null  and productDescription != ''"> and product_description = #{productDescription}</if>
+            <if test="dataFormat != null  and dataFormat != ''"> and data_format = #{dataFormat}</if>
+            <if test="createDate != null "> and create_date = #{createDate}</if> and promotion_id = 0
+        </where>
+    </select>
+    <select id="getDownLoadLocalImageList" parameterType="TRsStandardSatelliteImage" resultMap="TRsStandardSatelliteImageResult">
+        <include refid="selectTRsStandardSatelliteImageVo"/>
+        <where>
+            <if test="catalogCode != null  and catalogCode != ''"> and catalog_code = #{catalogCode}</if>
+            <if test="productName != null  and productName != ''"> and product_name like concat('%', #{productName}, '%')</if>
+            <if test="productDescription != null  and productDescription != ''"> and product_description = #{productDescription}</if>
+            <if test="dataFormat != null  and dataFormat != ''"> and data_format = #{dataFormat}</if>
+            <if test="createDate != null "> and create_date = #{createDate}</if> and promotion_id in (1,2) and wrs_path is null
+        </where>
+    </select>
+    <select id="getUploadLocalImageList" parameterType="TRsStandardSatelliteImage" resultMap="TRsStandardSatelliteImageResult">
+        <include refid="selectTRsStandardSatelliteImageVo"/>
+        <where>
+            <if test="catalogCode != null  and catalogCode != ''"> and catalog_code = #{catalogCode}</if>
+            <if test="productName != null  and productName != ''"> and product_name like concat('%', #{productName}, '%')</if>
+            <if test="productDescription != null  and productDescription != ''"> and product_description = #{productDescription}</if>
+            <if test="dataFormat != null  and dataFormat != ''"> and data_format = #{dataFormat}</if>
+            <if test="createDate != null "> and create_date = #{createDate}</if> and promotion_id in (2,3) and wrs_path is not null
+        </where>
+    </select>
+
+    <select id="selectTRsStandardSatelliteImageByImageId" parameterType="Long" resultMap="TRsStandardSatelliteImageResult">
+        <include refid="selectTRsStandardSatelliteImageVo"/>
+        where image_id = #{imageId}
+    </select>
+        
+    <insert id="insertTRsStandardSatelliteImage" parameterType="TRsStandardSatelliteImage">
+        insert into t_rs_standard_satellite_image
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="imageId != null">image_id,</if>
+            <if test="catalogCode != null and catalogCode != ''">catalog_code,</if>
+            <if test="promotionId != null">promotion_id,</if>
+            <if test="productName != null and productName != ''">product_name,</if>
+            <if test="productPrice != null">product_price,</if>
+            <if test="productDescription != null and productDescription != ''">product_description,</if>
+            <if test="satelliteId != null">satellite_id,</if>
+            <if test="sensorId != null">sensor_id,</if>
+            <if test="dataFormat != null">data_format,</if>
+            <if test="mapProjection != null">map_projection,</if>
+            <if test="earthModel != null">earth_model,</if>
+            <if test="spatialResolution != null and spatialResolution != ''">spatial_resolution,</if>
+            <if test="version != null">version,</if>
+            <if test="standardCode != null">standard_code,</if>
+            <if test="imageCode != null">image_code,</if>
+            <if test="md5 != null">md5,</if>
+            <if test="diskId != null">disk_id,</if>
+            <if test="serverId != null">server_id,</if>
+            <if test="wrsPath != null">wrs_path,</if>
+            <if test="wrsRow != null">wrs_row,</if>
+            <if test="thumbView != null">thumb_view,</if>
+            <if test="quickView != null">quick_view,</if>
+            <if test="cloudPercent != null">cloud_percent,</if>
+            <if test="filePath != null">file_path,</if>
+            <if test="dataSize != null">data_size,</if>
+            <if test="centerLat != null">center_lat,</if>
+            <if test="centerLong != null">center_long,</if>
+            <if test="upperLeftLat != null">upper_left_lat,</if>
+            <if test="upperLeftLong != null">upper_left_long,</if>
+            <if test="lowerRightLat != null">lower_right_lat,</if>
+            <if test="lowerRightLong != null">lower_right_long,</if>
+            <if test="geom != null">geom,</if>
+            <if test="dataUnitId != null">data_unit_id,</if>
+            <if test="sourceProductId != null">source_product_id,</if>
+            <if test="area != null">area,</if>
+            <if test="sunElevation != null">sun_elevation,</if>
+            <if test="sensingStartDate != null">sensing_start_date,</if>
+            <if test="sensingEndDate != null">sensing_end_date,</if>
+            <if test="datasetName != null">dataset_name,</if>
+            <if test="productType != null">product_type,</if>
+            <if test="productDate != null">product_date,</if>
+            <if test="productLevel != null">product_level,</if>
+            <if test="bands != null">bands,</if>
+            <if test="upperRightLat != null">upper_right_lat,</if>
+            <if test="upperRightLong != null">upper_right_long,</if>
+            <if test="lowerLeftLat != null">lower_left_lat,</if>
+            <if test="lowerLeftLong != null">lower_left_long,</if>
+            <if test="recStationId != null">rec_station_id,</if>
+            <if test="algorithm != null">algorithm,</if>
+            <if test="temporalResolution != null">temporal_resolution,</if>
+            <if test="creator != null">creator,</if>
+            <if test="createDate != null">create_date,</if>
+            <if test="downloadTime != null">download_time,</if>
+            <if test="modifyDate != null">modify_date,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="imageId != null">#{imageId},</if>
+            <if test="catalogCode != null and catalogCode != ''">#{catalogCode},</if>
+            <if test="promotionId != null">#{promotionId},</if>
+            <if test="productName != null and productName != ''">#{productName},</if>
+            <if test="productPrice != null">#{productPrice},</if>
+            <if test="productDescription != null and productDescription != ''">#{productDescription},</if>
+            <if test="satelliteId != null">#{satelliteId},</if>
+            <if test="sensorId != null">#{sensorId},</if>
+            <if test="dataFormat != null">#{dataFormat},</if>
+            <if test="mapProjection != null">#{mapProjection},</if>
+            <if test="earthModel != null">#{earthModel},</if>
+            <if test="spatialResolution != null and spatialResolution != ''">#{spatialResolution},</if>
+            <if test="version != null">#{version},</if>
+            <if test="standardCode != null">#{standardCode},</if>
+            <if test="imageCode != null">#{imageCode},</if>
+            <if test="md5 != null">#{md5},</if>
+            <if test="diskId != null">#{diskId},</if>
+            <if test="serverId != null">#{serverId},</if>
+            <if test="wrsPath != null">#{wrsPath},</if>
+            <if test="wrsRow != null">#{wrsRow},</if>
+            <if test="thumbView != null">#{thumbView},</if>
+            <if test="quickView != null">#{quickView},</if>
+            <if test="cloudPercent != null">#{cloudPercent},</if>
+            <if test="filePath != null">#{filePath},</if>
+            <if test="dataSize != null">#{dataSize},</if>
+            <if test="centerLat != null">#{centerLat},</if>
+            <if test="centerLong != null">#{centerLong},</if>
+            <if test="upperLeftLat != null">#{upperLeftLat},</if>
+            <if test="upperLeftLong != null">#{upperLeftLong},</if>
+            <if test="lowerRightLat != null">#{lowerRightLat},</if>
+            <if test="lowerRightLong != null">#{lowerRightLong},</if>
+            <if test="geom != null">#{geom},</if>
+            <if test="dataUnitId != null">#{dataUnitId},</if>
+            <if test="sourceProductId != null">#{sourceProductId},</if>
+            <if test="area != null">#{area},</if>
+            <if test="sunElevation != null">#{sunElevation},</if>
+            <if test="sensingStartDate != null">#{sensingStartDate},</if>
+            <if test="sensingEndDate != null">#{sensingEndDate},</if>
+            <if test="datasetName != null">#{datasetName},</if>
+            <if test="productType != null">#{productType},</if>
+            <if test="productDate != null">#{productDate},</if>
+            <if test="productLevel != null">#{productLevel},</if>
+            <if test="bands != null">#{bands},</if>
+            <if test="upperRightLat != null">#{upperRightLat},</if>
+            <if test="upperRightLong != null">#{upperRightLong},</if>
+            <if test="lowerLeftLat != null">#{lowerLeftLat},</if>
+            <if test="lowerLeftLong != null">#{lowerLeftLong},</if>
+            <if test="recStationId != null">#{recStationId},</if>
+            <if test="algorithm != null">#{algorithm},</if>
+            <if test="temporalResolution != null">#{temporalResolution},</if>
+            <if test="creator != null">#{creator},</if>
+            <if test="createDate != null">#{createDate},</if>
+            <if test="downloadTime != null">#{downloadTime},</if>
+            <if test="modifyDate != null">#{modifyDate},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTRsStandardSatelliteImage" parameterType="TRsStandardSatelliteImage">
+        update t_rs_standard_satellite_image
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="catalogCode != null and catalogCode != ''">catalog_code = #{catalogCode},</if>
+            <if test="promotionId != null">promotion_id = #{promotionId},</if>
+            <if test="productName != null and productName != ''">product_name = #{productName},</if>
+            <if test="productPrice != null">product_price = #{productPrice},</if>
+            <if test="productDescription != null and productDescription != ''">product_description = #{productDescription},</if>
+            <if test="satelliteId != null">satellite_id = #{satelliteId},</if>
+            <if test="sensorId != null">sensor_id = #{sensorId},</if>
+            <if test="dataFormat != null">data_format = #{dataFormat},</if>
+            <if test="mapProjection != null">map_projection = #{mapProjection},</if>
+            <if test="earthModel != null">earth_model = #{earthModel},</if>
+            <if test="spatialResolution != null and spatialResolution != ''">spatial_resolution = #{spatialResolution},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="standardCode != null">standard_code = #{standardCode},</if>
+            <if test="imageCode != null">image_code = #{imageCode},</if>
+            <if test="md5 != null">md5 = #{md5},</if>
+            <if test="diskId != null">disk_id = #{diskId},</if>
+            <if test="serverId != null">server_id = #{serverId},</if>
+            <if test="wrsPath != null">wrs_path = #{wrsPath},</if>
+            <if test="wrsRow != null">wrs_row = #{wrsRow},</if>
+            <if test="thumbView != null">thumb_view = #{thumbView},</if>
+            <if test="quickView != null">quick_view = #{quickView},</if>
+            <if test="cloudPercent != null">cloud_percent = #{cloudPercent},</if>
+            <if test="filePath != null">file_path = #{filePath},</if>
+            <if test="dataSize != null">data_size = #{dataSize},</if>
+            <if test="centerLat != null">center_lat = #{centerLat},</if>
+            <if test="centerLong != null">center_long = #{centerLong},</if>
+            <if test="upperLeftLat != null">upper_left_lat = #{upperLeftLat},</if>
+            <if test="upperLeftLong != null">upper_left_long = #{upperLeftLong},</if>
+            <if test="lowerRightLat != null">lower_right_lat = #{lowerRightLat},</if>
+            <if test="lowerRightLong != null">lower_right_long = #{lowerRightLong},</if>
+            <if test="geom != null">geom = #{geom},</if>
+            <if test="dataUnitId != null">data_unit_id = #{dataUnitId},</if>
+            <if test="sourceProductId != null">source_product_id = #{sourceProductId},</if>
+            <if test="area != null">area = #{area},</if>
+            <if test="sunElevation != null">sun_elevation = #{sunElevation},</if>
+            <if test="sensingStartDate != null">sensing_start_date = #{sensingStartDate},</if>
+            <if test="sensingEndDate != null">sensing_end_date = #{sensingEndDate},</if>
+            <if test="datasetName != null">dataset_name = #{datasetName},</if>
+            <if test="productType != null">product_type = #{productType},</if>
+            <if test="productDate != null">product_date = #{productDate},</if>
+            <if test="productLevel != null">product_level = #{productLevel},</if>
+            <if test="bands != null">bands = #{bands},</if>
+            <if test="upperRightLat != null">upper_right_lat = #{upperRightLat},</if>
+            <if test="upperRightLong != null">upper_right_long = #{upperRightLong},</if>
+            <if test="lowerLeftLat != null">lower_left_lat = #{lowerLeftLat},</if>
+            <if test="lowerLeftLong != null">lower_left_long = #{lowerLeftLong},</if>
+            <if test="recStationId != null">rec_station_id = #{recStationId},</if>
+            <if test="algorithm != null">algorithm = #{algorithm},</if>
+            <if test="temporalResolution != null">temporal_resolution = #{temporalResolution},</if>
+            <if test="creator != null">creator = #{creator},</if>
+            <if test="createDate != null">create_date = #{createDate},</if>
+            <if test="downloadTime != null">download_time = #{downloadTime},</if>
+            <if test="modifyDate != null">modify_date = #{modifyDate},</if>
+        </trim>
+        where image_id = #{imageId}
+    </update>
+    <update id="downLoadTRsStandardSatelliteImage" parameterType="TRsStandardSatelliteImage">
+      update t_rs_standard_satellite_image  <trim prefix="SET" suffixOverrides=",">
+          <if test="diskId != null">disk_id = #{diskId},</if>
+          <if test="wrsPath != null">wrs_path = #{wrsPath},</if>
+          <if test="wrsRow != null"> wrs_row= #{wrsRow},</if>
+          <if test="promotionId != null">promotion_id = #{promotionId},</if>
+          <if test="algorithm != null">algorithm = #{algorithm},</if>
+          <if test="downloadTime != null">download_time = #{downloadTime},</if>
+    </trim>where image_id = #{imageId}
+    </update>
+    <update id="deleteTRsStandardSatelliteImageByImageId" parameterType="Long">
+--         delete from t_rs_standard_satellite_image where image_id = #{imageId}
+        update t_rs_standard_satellite_image set disk_id = 0 ,promotion_id =0 ,wrs_path=null ,wrs_row=0,download_time=null where image_id = #{imageId}
+    </update>
+
+    <update id="deleteTRsStandardSatelliteImageByImageIds" parameterType="String">
+        update t_rs_standard_satellite_image set disk_id = 0 ,promotion_id =0 ,wrs_path=null ,wrs_row=0,download_time=null where image_id in
+        <foreach item="imageId" collection="array" open="(" separator="," close=")">
+            #{imageId}
+        </foreach>
+    </update>
+</mapper>

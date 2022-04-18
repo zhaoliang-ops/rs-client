@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysAlgorithmMapper">
+    
+    <resultMap type="SysAlgorithm" id="SysAlgorithmResult">
+        <result property="id"    column="id"    />
+        <result property="nameZh"    column="name_zh"    />
+        <result property="name"    column="name"    />
+        <result property="version"    column="version"    />
+        <result property="isActive"    column="is_active"    />
+        <result property="date"    column="date"    />
+    </resultMap>
+
+    <sql id="selectSysAlgorithmVo">
+        select id, name_zh, name, version, is_active, date from sys_algorithm
+    </sql>
+
+    <select id="selectSysAlgorithmList" parameterType="SysAlgorithm" resultMap="SysAlgorithmResult">
+        <include refid="selectSysAlgorithmVo"/>
+        <where>  
+            <if test="nameZh != null  and nameZh != ''"> and name_zh = #{nameZh}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="version != null  and version != ''"> and version = #{version}</if>
+            <if test="isActive != null  and isActive != ''"> and is_active = #{isActive}</if>
+            <if test="date != null "> and date = #{date}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysAlgorithmById" parameterType="Long" resultMap="SysAlgorithmResult">
+        <include refid="selectSysAlgorithmVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSysAlgorithm" parameterType="SysAlgorithm" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_algorithm
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="nameZh != null">name_zh,</if>
+            <if test="name != null">name,</if>
+            <if test="version != null">version,</if>
+            <if test="isActive != null">is_active,</if>
+            <if test="date != null">date,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="nameZh != null">#{nameZh},</if>
+            <if test="name != null">#{name},</if>
+            <if test="version != null">#{version},</if>
+            <if test="isActive != null">#{isActive},</if>
+            <if test="date != null">#{date},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysAlgorithm" parameterType="SysAlgorithm">
+        update sys_algorithm
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="nameZh != null">name_zh = #{nameZh},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="isActive != null">is_active = #{isActive},</if>
+            <if test="date != null">date = #{date},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSysAlgorithmById" parameterType="Long">
+        delete from sys_algorithm where id = #{id}
+    </delete>
+
+    <delete id="deleteSysAlgorithmByIds" parameterType="String">
+        delete from sys_algorithm where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
